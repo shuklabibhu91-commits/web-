@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>LIE Cuisine | Food To Be Good</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  background:#fffaf5;
+  color:#222;
+  padding-bottom:80px;
+}
+
+/* HERO */
+.hero{
+  min-height:430px;
+  position:relative;
+  background-image:
+    linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.55)),
+    url("https://i.ibb.co/gMTbzK2z/IMG-aed42d10-9714-470b-87c6-8baed352bd01.jpg");
+  background-size:cover;
+  background-position:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:white;
+  padding:30px 20px;
+}
+
+.hero-content{
+  max-width:600px;
+}
+
+.hero h1{
+  font-size:42px;
+  margin-bottom:8px;
+  text-shadow:0 3px 10px rgba(0,0,0,.4);
+}
+
+.hero p{
+  font-size:20px;
+  margin-bottom:12px;
+}
+
+.location{
+  font-size:14px;
+}
+
+.hero-btn{
+  display:inline-block;
+  margin-top:20px;
+  padding:13px 24px;
+  border-radius:30px;
+  background:#e63946;
+  color:white;
+  text-decoration:none;
+  font-weight:bold;
+}
+
+/* CATEGORIES */
+.categories{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding:15px;
+  background:white;
+  position:sticky;
+  top:0;
+  z-index:10;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.categories button{
+  border:none;
+  background:#f1f1f1;
+  padding:10px 18px;
+  border-radius:25px;
+  white-space:nowrap;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.categories button.active{
+  background:#e63946;
+  color:white;
+}
+
+/* PRODUCTS */
+.products{
+  max-width:1100px;
+  margin:20px auto;
+  padding:0 15px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
+}
+
+.product{
+  background:white;
+  border-radius:15px;
+  overflow:hidden;
+  box-shadow:0 4px 15px rgba(0,0,0,.08);
+  transition:.2s;
+}
+
+.product:hover{
+  transform:translateY(-3px);
+}
+
+.product img{
+  width:100%;
+  height:150px;
+  object-fit:cover;
+  display:block;
+}
+
+.product-info{
+  padding:12px;
+}
+
+.product h3{
+  font-size:17px;
+  margin-bottom:5px;
+}
+
+.description{
+  color:#777;
+  font-size:12px;
+  min-height:30px;
+}
+
+.price{
+  color:#e63946;
+  font-size:19px;
+  font-weight:bold;
+  margin:8px 0;
+}
+
+.add-btn{
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:8px;
+  background:#e63946;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* CART */
+.cart-button{
+  position:fixed;
+  right:18px;
+  bottom:80px;
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  border:none;
+  background:#e63946;
+  color:white;
+  font-size:25px;
+  box-shadow:0 5px 20px rgba(0,0,0,.25);
+  z-index:20;
+  cursor:pointer;
+}
+
+.cart-count{
+  position:absolute;
+  top:-4px;
+  right:-4px;
+  background:#111;
+  color:white;
+  width:23px;
+  height:23px;
+  border-radius:50%;
+  font-size:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* WHATSAPP */
+.whatsapp{
+  position:fixed;
+  bottom:15px;
+  left:15px;
+  right:15px;
+  background:#25d366;
+  color:white;
+  text-align:center;
+  padding:13px;
+  border-radius:30px;
+  text-decoration:none;
+  font-weight:bold;
+  z-index:19;
+}
+
+/* MODALS */
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.65);
+  z-index:100;
+  padding:15px;
+  overflow-y:auto;
+}
+
+.modal-content{
+  background:white;
+  max-width:600px;
+  margin:20px auto;
+  border-radius:18px;
+  padding:20px;
+}
+
+.modal-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:15px;
+}
+
+.close{
+  background:#eee;
+  border:none;
+  width:35px;
+  height:35px;
+  border-radius:50%;
+  font-size:20px;
+  cursor:pointer;
+}
+
+.cart-item{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:12px 0;
+  border-bottom:1px solid #eee;
+}
+
+.cart-item-info{
+  flex:1;
+}
+
+.cart-item-name{
+  font-weight:bold;
+}
+
+.cart-item-price{
+  color:#e63946;
+  font-size:14px;
+  margin-top:4px;
+}
+
+.quantity{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  margin-top:7px;
+}
+
+.quantity button{
+  width:28px;
+  height:28px;
+  border:none;
+  border-radius:6px;
+  background:#eee;
+  cursor:pointer;
+  font-size:18px;
+}
+
+.remove{
+  color:#e63946;
+  background:none!important;
+  font-size:12px!important;
+}
+
+.total{
+  display:flex;
+  justify-content:space-between;
+  font-size:21px;
+  font-weight:bold;
+  margin:20px 0;
+}
+
+.checkout-btn,
+.submit-btn{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:10px;
+  background:#e63946;
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+form input,
+form textarea{
+  width:100%;
+  padding:13px;
+  margin:7px 0 12px;
+  border:1px solid #ddd;
+  border-radius:8px;
+  font-size:15px;
+}
+
+form label{
+  font-size:14px;
+  font-weight:bold;
+}
+
+.empty{
+  text-align:center;
+  padding:30px 5px;
+  color:#777;
+}
+
+.success{
+  text-align:center;
+  padding:30px 10px;
+}
+
+.success h2{
+  color:#25a244;
+  margin-bottom:10px;
+}
+
+.success a{
+  display:inline-block;
+  margin-top:15px;
+  background:#25d366;
+  color:white;
+  padding:12px 20px;
+  border-radius:25px;
+  text-decoration:none;
+  font-weight:bold;
+}
+
+footer{
+  text-align:center;
+  padding:30px 15px;
+  color:#777;
+  font-size:13px;
+}
+
+@media(min-width:700px){
+  .products{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .product img{
+    height:190px;
+  }
+
+  .hero{
+    min-height:500px;
+  }
+
+  .hero h1{
+    font-size:58px;
+  }
+}
+
+@media(min-width:1000px){
+  .products{
+    grid-template-columns:repeat(4,1fr);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO IMAGE -->
+<header class="hero">
+  <div class="hero-content">
+
+    <h1>🍴 LIE Cuisine</h1>
+
+    <p>Food to be good</p>
+
+    <div class="location">
+      📍 Shahjahanpur, Uttar Pradesh
+    </div>
+
+    <a href="#products" class="hero-btn">
+      Explore Menu
+    </a>
+
+  </div>
+</header>
+
+
+<!-- CATEGORIES -->
+<nav class="categories">
+
+  <button
+    class="active"
+    onclick="filterProducts('all',this)">
+    All
+  </button>
+
+  <button
+    onclick="filterProducts('Food',this)">
+    Food
+  </button>
+
+  <button
+    onclick="filterProducts('Beverages',this)">
+    Beverages
+  </button>
+
+</nav>
+
+
+<!-- PRODUCTS -->
+<main class="products" id="products"></main>
+
+
+<footer>
+
+  <p><strong>LIE Cuisine</strong></p>
+
+  <p>Food to be good ❤️</p>
+
+  <p>Shahjahanpur, Uttar Pradesh</p>
+
+  <p style="margin-top:10px;">
+    📞 9794106664
+  </p>
+
+</footer>
+
+
+<!-- CART BUTTON -->
+<button class="cart-button" onclick="openCart()">
+
+  🛒
+
+  <span
+    class="cart-count"
+    id="cartCount">
+    0
+  </span>
+
+</button>
+
+
+<!-- WHATSAPP -->
+<a
+  class="whatsapp"
+  href="https://wa.me/919794106664"
+  target="_blank">
+
+  💬 Chat on WhatsApp
+
+</a>
+
+
+<!-- CART MODAL -->
+<div class="modal" id="cartModal">
+
+  <div class="modal-content">
+
+    <div class="modal-header">
+
+      <h2>Your Cart</h2>
+
+      <button
+        class="close"
+        onclick="closeCart()">
+        ×
+      </button>
+
+    </div>
+
+    <div id="cartItems"></div>
+
+    <div class="total">
+
+      <span>Grand Total</span>
+
+      <span id="grandTotal">
+        ₹0
+      </span>
+
+    </div>
+
+    <button
+      class="checkout-btn"
+      onclick="openCheckout()">
+
+      Place Order
+
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- CHECKOUT -->
+<div class="modal" id="checkoutModal">
+
+  <div class="modal-content">
+
+    <div class="modal-header">
+
+      <h2>Place Your Order</h2>
+
+      <button
+        class="close"
+        onclick="closeCheckout()">
+        ×
+      </button>
+
+    </div>
+
+
+    <form
+      id="orderForm"
+      action="https://formspree.io/f/YOUR_FORMSPREE_ID"
+      method="POST">
+
+
+      <label>
+        Customer Name *
+      </label>
+
+      <input
+        type="text"
+        name="customer_name"
+        required
+        placeholder="Enter your name">
+
+
+      <label>
+        Phone Number *
+      </label>
+
+      <input
+        type="tel"
+        name="phone"
+        required
+        pattern="[0-9]{10}"
+        placeholder="10-digit mobile number">
+
+
+      <label>
+        Delivery Address *
+      </label>
+
+      <textarea
+        name="address"
+        required
+        rows="3"
+        placeholder="Enter complete delivery address">
+      </textarea>
+
+
+      <label>
+        Special Instructions
+      </label>
+
+      <textarea
+        name="instructions"
+        rows="2"
+        placeholder="Any special instructions?">
+      </textarea>
+
+
+      <input
+        type="hidden"
+        name="order_summary"
+        id="orderSummary">
+
+      <input
+        type="hidden"
+        name="grand_total"
+        id="formTotal">
+
+      <input
+        type="hidden"
+        name="_subject"
+        value="New Order - LIE Cuisine">
+
+
+      <button
+        class="submit-btn"
+        type="submit">
+
+        Confirm Order
+
+      </button>
+
+    </form>
+
+    <div id="formMessage"></div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+const products = [
+
+  {
+    id:1,
+    name:"Veg Burger",
+    price:79,
+    category:"Food",
+    image:"https://i.ibb.co/MDprn2mn/IMG-919886a1-88fb-4481-9583-db91ed6c5250.jpg",
+    description:"Fresh and tasty vegetable burger"
+  },
+
+  {
+    id:2,
+    name:"Paneer Burger",
+    price:99,
+    category:"Food",
+    image:"https://i.ibb.co/gMTbzK2z/IMG-aed42d10-9714-470b-87c6-8baed352bd01.jpg",
+    description:"Delicious burger with spicy paneer"
+  },
+
+  {
+    id:3,
+    name:"Veg Sandwich",
+    price:69,
+    category:"Food",
+    image:"https://i.ibb.co/gMTbzK2z/IMG-aed42d10-9714-470b-87c6-8baed352bd01.jpg",
+    description:"Fresh vegetable sandwich"
+  },
+
+  {
+    id:4,
+    name:"Paneer Sandwich",
+    price:89,
+    category:"Food",
+    image:"https://i.ibb.co/MDprn2mn/IMG-919886a1-88fb-4481-9583-db91ed6c5250.jpg",
+    description:"Grilled sandwich with paneer"
+  },
+
+  {
+    id:5,
+    name:"French Fries",
+    price:59,
+    category:"Food",
+    image:"https://i.ibb.co/gMTbzK2z/IMG-aed42d10-9714-470b-87c6-8baed352bd01.jpg",
+    description:"Crispy golden French fries"
+  },
+
+  {
+    id:6,
+    name:"Veg Momos",
+    price:79,
+    category:"Food",
+    image:"https://i.ibb.co/MDprn2mn/IMG-919886a1-88fb-4481-9583-db91ed6c5250.jpg",
+    description:"Soft and tasty vegetable momos"
+  },
+
+  {
+    id:7,
+    name:"Paneer Momos",
+    price:99,
+    category:"Food",
+    image:"https://i.ibb.co/gMTbzK2z/IMG-aed42d10-9714-470b-87c6-8baed352bd01.jpg",
+    description:"Delicious momos filled with paneer"
+  },
+
+  {
+    id:8,
+    name:"Masala Maggi",
+    price:49,
+    category:"Food",
+    image:"https://i.ibb.co/MDprn2mn/IMG-919886a1-88fb-4481-9583-db91ed6c5250.jpg",
+    description:"Hot and spicy masala Maggi"
+  },
+
+  {
+    id:9,
+    name:"Cold Coffee",
+    price:69,
+    category:"Beverages",
+    image:"https://i.ibb.co/gMTbzK2z/IMG-aed42d10-9714-470b-87c6-8baed352bd01.jpg",
+    description:"Refreshing chilled cold coffee"
+  },
+
+  {
+    id:10,
+    name:"Lemon Soda",
+    price:39,
+    category:"Beverages",
+    image:"https://i.ibb.co/MDprn2mn/IMG-919886a1-88fb-4481-9583-db91ed6c5250.jpg",
+    description:"Refreshing lemon soda"
+  }
+
+];
+
+
+let cart =
+JSON.parse(
+localStorage.getItem("lieCuisineCart")
+) || [];
+
+
+function displayProducts(category="all"){
+
+  const container =
+  document.getElementById("products");
+
+  const filtered =
+  category==="all"
+  ? products
+  : products.filter(
+      p=>p.category===category
+    );
+
+  container.innerHTML =
+  filtered.map(product=>`
+
+    <div class="product">
+
+      <img
+        src="${product.image}"
+        alt="${product.name}"
+        loading="lazy">
+
+      <div class="product-info">
+
+        <h3>${product.name}</h3>
+
+        <div class="description">
+          ${product.description}
+        </div>
+
+        <div class="price">
+          ₹${product.price}
+        </div>
+
+        <button
+          class="add-btn"
+          onclick="addToCart(${product.id})">
+
+          Add to Cart
+
+        </button>
+
+      </div>
+
+    </div>
+
+  `).join("");
+
+}
+
+
+function filterProducts(category,button){
+
+  document
+  .querySelectorAll(".categories button")
+  .forEach(
+    btn=>btn.classList.remove("active")
+  );
+
+  button.classList.add("active");
+
+  displayProducts(category);
+}
+
+
+function addToCart(id){
+
+  const product =
+  products.find(p=>p.id===id);
+
+  const existing =
+  cart.find(item=>item.id===id);
+
+  if(existing){
+
+    existing.quantity++;
+
+  }else{
+
+    cart.push({
+      ...product,
+      quantity:1
+    });
+
+  }
+
+  saveCart();
+
+  updateCartCount();
+
+}
+
+
+function saveCart(){
+
+  localStorage.setItem(
+    "lieCuisineCart",
+    JSON.stringify(cart)
+  );
+
+}
+
+
+function updateCartCount(){
+
+  const count =
+  cart.reduce(
+    (total,item)=>
+    total+item.quantity,
+    0
+  );
+
+  document.getElementById(
+    "cartCount"
+  ).innerText=count;
+
+}
+
+
+function openCart(){
+
+  renderCart();
+
+  document.getElementById(
+    "cartModal"
+  ).style.display="block";
+
+}
+
+
+function closeCart(){
+
+  document.getElementById(
+    "cartModal"
+  ).style.display="none";
+
+}
+
+
+function renderCart(){
+
+  const container =
+  document.getElementById("cartItems");
+
+  if(cart.length===0){
+
+    container.innerHTML=`
+      <div class="empty">
+        🛒 Your cart is empty.
+      </div>
+    `;
+
+    document.getElementById(
+      "grandTotal"
+    ).innerText="₹0";
+
+    return;
+  }
+
+  let total=0;
+
+  container.innerHTML =
+  cart.map(item=>{
+
+    const subtotal =
+    item.price*item.quantity;
+
+    total+=subtotal;
+
+    return`
+
+      <div class="cart-item">
+
+        <div class="cart-item-info">
+
+          <div class="cart-item-name">
+            ${item.name}
+          </div>
+
+          <div class="cart-item-price">
+            ₹${item.price} × ${item.quantity}
+            = ₹${subtotal}
+          </div>
+
+          <div class="quantity">
+
+            <button
+              onclick="changeQuantity(${item.id},-1)">
+              −
+            </button>
+
+            <strong>
+              ${item.quantity}
+            </strong>
+
+            <button
+              onclick="changeQuantity(${item.id},1)">
+              +
+            </button>
+
+            <button
+              class="remove"
+              onclick="removeFromCart(${item.id})">
+
+              Remove
+
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    `;
+
+  }).join("");
+
+  document.getElementById(
+    "grandTotal"
+  ).innerText="₹"+total;
+
+}
+
+
+function changeQuantity(id,amount){
+
+  const item =
+  cart.find(item=>item.id===id);
+
+  if(!item)return;
+
+  item.quantity+=amount;
+
+  if(item.quantity<=0){
+
+    cart=
+    cart.filter(
+      item=>item.id!==id
+    );
+
+  }
+
+  saveCart();
+
+  updateCartCount();
+
+  renderCart();
+
+}
+
+
+function removeFromCart(id){
+
+  cart=
+  cart.filter(
+    item=>item.id!==id
+  );
+
+  saveCart();
+
+  updateCartCount();
+
+  renderCart();
+
+}
+
+
+function openCheckout(){
+
+  if(cart.length===0){
+
+    alert("Your cart is empty.");
+
+    return;
+  }
+
+  closeCart();
+
+  const summary =
+  cart.map(item=>{
+
+    const subtotal =
+    item.price*item.quantity;
+
+    return`${item.name} | Qty: ${item.quantity} | Price: ₹${item.price} | Subtotal: ₹${subtotal}`;
+
+  }).join("\n");
+
+
+  const total =
+  cart.reduce(
+    (sum,item)=>
+    sum+item.price*item.quantity,
+    0
+  );
+
+
+  document.getElementById(
+    "orderSummary"
+  ).value=summary;
+
+  document.getElementById(
+    "formTotal"
+  ).value="₹"+total;
+
+  document.getElementById(
+    "checkoutModal"
+  ).style.display="block";
+
+}
+
+
+function closeCheckout(){
+
+  document.getElementById(
+    "checkoutModal"
+  ).style.display="none";
+
+}
+
+
+const form =
+document.getElementById("orderForm");
+
+
+form.addEventListener(
+"submit",
+async function(event){
+
+  event.preventDefault();
+
+  const submitButton =
+  form.querySelector(".submit-btn");
+
+  submitButton.disabled=true;
+
+  submitButton.innerText=
+  "Sending Order...";
+
+  const formData =
+  new FormData(form);
+
+  try{
+
+    const response =
+    await fetch(
+      form.action,
+      {
+        method:"POST",
+        body:formData,
+        headers:{
+          "Accept":
+          "application/json"
+        }
+      }
+    );
+
+    if(response.ok){
+
+      localStorage.removeItem(
+        "lieCuisineCart"
+      );
+
+      cart=[];
+
+      updateCartCount();
+
+      form.style.display="none";
+
+      document.getElementById(
+        "formMessage"
+      ).innerHTML=`
+
+        <div class="success">
+
+          <h2>✅ Order placed!</h2>
+
+          <p>
+            LIE Cuisine will contact you
+            on WhatsApp to confirm your order.
+          </p>
+
+          <a
+            href="https://wa.me/919794106664"
+            target="_blank">
+
+            💬 Message LIE Cuisine
+
+          </a>
+
+        </div>
+
+      `;
+
+    }else{
+
+      throw new Error();
+
+    }
+
+  }catch(error){
+
+    alert(
+      "Unable to send the order. Please contact LIE Cuisine on WhatsApp."
+    );
+
+    submitButton.disabled=false;
+
+    submitButton.innerText=
+    "Confirm Order";
+
+  }
+
+});
+
+
+displayProducts();
+
+updateCartCount();
+
+
+window.addEventListener(
+"click",
+function(event){
+
+  if(
+    event.target===
+    document.getElementById("cartModal")
+  ){
+
+    closeCart();
+
+  }
+
+  if(
+    event.target===
+    document.getElementById("checkoutModal")
+  ){
+
+    closeCheckout();
+
+  }
+
+});
+
+</script>
+
+</body>
+</html>
